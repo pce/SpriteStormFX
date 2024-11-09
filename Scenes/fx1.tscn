@@ -30,6 +30,6 @@ shape = SubResource("SphereShape3D_j2vsi")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="RigidBody3D"]
 material_override = SubResource("StandardMaterial3D_63sua")
-amount = 4
+amount = 9
 process_material = SubResource("ParticleProcessMaterial_yy2xt")
 draw_pass_1 = SubResource("QuadMesh_bs7su")

@@ -10,9 +10,15 @@ var next_scene: PackedScene = null
 
 @onready var fx_name_label = $UICanvasLayer/Panel/FxNameLabel
 
+var config_settings: ConfigSettings
+@onready var config_panel = $UICanvasLayer/Panel/ConfigPanel
 
-func _ready():
-	# Create a ColorRect node for fades
+func _ready():	
+	config_settings = ConfigSettings.new()
+	config_settings.load()
+
+	config_panel.set_config_settings(config_settings)
+		
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)
 	fade_rect.anchor_left = 0
@@ -24,7 +30,7 @@ func _ready():
 	# Load the initial FX scene
 	load_scene_by_index(current_index)
 
-func load_scene_by_index(index: int):	
+func load_scene_by_index(index: int):
 	current_index = index % fx_scenes.size()
 	next_scene = fx_scenes[current_index]
 	fx_name_label.text = next_scene.resource_path.get_file().get_basename() 
@@ -75,3 +81,12 @@ func fade_in():
 func _on_fade_in_complete():
 	# hide the fade_rect after fade-in completes
 	fade_rect.visible = false  # Hide the overlay once fade-in is done
+
+
+func show_ui():
+	var panel = get_node("Panel");
+	panel.visible = true;
+	
+func hide_ui():
+	var panel = get_node("Panel");
+	panel.visible = false;

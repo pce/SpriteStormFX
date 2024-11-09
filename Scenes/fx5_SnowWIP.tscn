@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwkkwydtdwxyn"]
+
+[ext_resource type="Texture2D" uid="uid://5c0ipx21u0g3" path="res://Assets/Particles/star_05.png" id="1_33y0w"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j2vsi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63sua"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.890196, 0.909804, 1, 1)
+albedo_texture = ExtResource("1_33y0w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yy2xt"]
+particle_flag_align_y = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+inherit_velocity_ratio = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, -3, 0)
+damping_max = 1.0
+collision_mode = 1
+collision_friction = 1.0
+collision_bounce = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_g2wrs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4tbqc"]
+
+[node name="Level3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_j2vsi")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83551, 0)
+material_override = SubResource("StandardMaterial3D_63sua")
+amount = 100
+lifetime = 1.55
+explosiveness = 0.3
+randomness = 0.45
+process_material = SubResource("ParticleProcessMaterial_yy2xt")
+draw_pass_1 = SubResource("QuadMesh_g2wrs")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+shape = SubResource("BoxShape3D_4tbqc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RigidBody3D2"]
