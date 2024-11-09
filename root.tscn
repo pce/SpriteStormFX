@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwgw62onllflj"]
+
+[ext_resource type="Script" path="res://Scripts/app_controller.gd" id="1_c8l1q"]
+[ext_resource type="PackedScene" uid="uid://cx14lxed0abb" path="res://fx1.tscn" id="2_vi7cc"]
+[ext_resource type="PackedScene" uid="uid://dpe2q7wnbt36j" path="res://fx2.tscn" id="3_ctaqk"]
+[ext_resource type="Script" path="res://Scripts/Actions/next_button.gd" id="4_v1wbx"]
+[ext_resource type="PackedScene" uid="uid://m1pag2dnckwt" path="res://fx3.tscn" id="4_v7nin"]
+[ext_resource type="Script" path="res://Scripts/Actions/previous_button.gd" id="5_e518w"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_avlx3"]
+sky_top_color = Color(0, 0, 1, 1)
+sky_horizon_color = Color(0.545648, 0.518317, 0.75169, 1)
+ground_bottom_color = Color(0.182592, 0.0732686, 0.00675921, 1)
+ground_horizon_color = Color(0.545648, 0.518317, 0.75169, 1)
+
+[sub_resource type="Sky" id="Sky_tpv4i"]
+sky_material = SubResource("ProceduralSkyMaterial_avlx3")
+
+[sub_resource type="Environment" id="Environment_kdx6k"]
+background_mode = 2
+sky = SubResource("Sky_tpv4i")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="AppController" type="Node3D"]
+script = ExtResource("1_c8l1q")
+fx_scenes = Array[PackedScene]([ExtResource("2_vi7cc"), ExtResource("3_ctaqk"), ExtResource("4_v7nin")])
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kdx6k")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.71)
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="UICanvasLayer"]
+offset_right = 274.0
+offset_bottom = 147.0
+
+[node name="HeadlineLabel" type="Label" parent="UICanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.5
+offset_right = 42.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "ParticlesFX"
+
+[node name="FxNameLabel" type="Label" parent="UICanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -118.0
+offset_top = 28.0
+offset_right = -33.0
+offset_bottom = 51.0
+grow_horizontal = 2
+text = "Arcane Bolt"
+
+[node name="NextButton" type="Button" parent="UICanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 100.0
+offset_right = 252.0
+offset_bottom = 131.0
+text = "Next"
+script = ExtResource("4_v1wbx")
+
+[node name="PreviousButton" type="Button" parent="UICanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 100.0
+offset_right = 92.0
+offset_bottom = 131.0
+text = "Previous"
+script = ExtResource("5_e518w")
